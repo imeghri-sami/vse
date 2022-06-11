@@ -1,6 +1,6 @@
 from fastapi import FastAPI, UploadFile
 from services.video_services import save_video
-from va2speech.va2speech import video_2_speech
+from utils.va2speech import video_2_speech
 
 app = FastAPI()
 

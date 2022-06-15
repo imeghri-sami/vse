@@ -1,12 +1,19 @@
 from fastapi import FastAPI, UploadFile
 from fastapi.responses import FileResponse
+from fastapi.middleware.cors import CORSMiddleware
 
 from utils.helpers import save_video
 from utils.va2speech import video_2_speech
 from irengine.elasticsearch import *
 
 app = FastAPI()
-
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=['*'],
+    allow_credentials=True,
+    allow_methods=['*'],
+    allow_headers=['*'],
+)
 
 @app.post("/upload-video")
 def upload_video(file: UploadFile):
@@ -16,7 +23,7 @@ def upload_video(file: UploadFile):
     if not is_index_exists():
         create_index()
     else:
-        insert_document(generated_file_name, document=content)
+        insert_document(generated_file_name, document=content, filename=file.filename)
     return "Document inserted"
 
 

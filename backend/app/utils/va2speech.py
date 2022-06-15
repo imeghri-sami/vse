@@ -4,7 +4,7 @@ import os
 
 
 def video_2_audio(video_file_path, audio_file_name='converted.tmp.wav'):
-    clip = mp.VideoFileClip(video_file_path)
+    clip = mp.VideoFileClip("videos/"+video_file_path)
 
     #if clip.duration > 600:  # 600s max video duration to process
     #    raise "ERROR : cannot process a video with more than 10min length !"
